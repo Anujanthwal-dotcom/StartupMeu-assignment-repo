@@ -30,6 +30,10 @@
 │  │  Controllers  │  Middleware (auth, validate, errorHandler)  ││
 │  └─────────────────────────────────────────────────────────────┘│
 │  ┌─────────────────────────────────────────────────────────────┐│
+│  │  Services (authService, expenseService)                     ││
+│  │  Business logic, DB queries, aggregations                   ││
+│  └─────────────────────────────────────────────────────────────┘│
+│  ┌─────────────────────────────────────────────────────────────┐│
 │  │  Mongoose Models: User, Expense                             ││
 │  └─────────────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────────┘
@@ -134,7 +138,8 @@
     │   ├── config/           # DB connection, env validation
     │   ├── models/           # Mongoose schemas: User, Expense
     │   ├── routes/           # Express routers (auth, expenses)
-    │   ├── controllers/      # Route handler logic
+    │   ├── controllers/      # Request/response handling, calls services
+    │   ├── services/         # Business logic, DB queries, aggregations
     │   ├── middleware/       # auth, validate, errorHandler
     │   └── index.ts          # App entry point
     ├── package.json

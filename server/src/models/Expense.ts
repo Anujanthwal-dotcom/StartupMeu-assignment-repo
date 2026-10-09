@@ -1,6 +1,5 @@
 import { Schema, model, Document, Types } from 'mongoose';
 
-// Predefined category values — fixed in v1
 export type ExpenseCategory =
   | 'Food'
   | 'Transport'
