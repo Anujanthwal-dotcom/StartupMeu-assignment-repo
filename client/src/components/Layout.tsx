@@ -16,7 +16,7 @@ export default function Layout() {
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <span className="font-bold text-lg text-blue-600 tracking-tight">
-            💸 ExpenseTracker
+            ExpenseTracker
           </span>
 
           <nav className="flex items-center gap-6 text-sm font-medium">

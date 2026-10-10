@@ -49,7 +49,7 @@ export default function DashboardPage() {
   }, [period]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header row */}
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
@@ -76,16 +76,17 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {loading ? (
+      {!summary && loading ? (
+        // Only show skeletons on the very first load (no data yet)
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="h-28 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       ) : summary ? (
-        <>
-          {/* Summary card */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className={`space-y-6 transition-opacity duration-200 ${loading ? 'opacity-50' : 'opacity-100'}`}>
+          {/* Summary cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-1 bg-blue-600 text-white rounded-xl p-6 shadow-sm">
               <p className="text-sm text-blue-200 font-medium">Total spending</p>
               <p className="text-3xl font-bold mt-1">
@@ -116,7 +117,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Pie chart + breakdown */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Pie chart */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
               <h2 className="text-sm font-semibold text-gray-700 mb-4">Spending by category</h2>
@@ -211,7 +212,7 @@ export default function DashboardPage() {
               </ul>
             )}
           </div>
-        </>
+        </div>
       ) : null}
     </div>
   );
