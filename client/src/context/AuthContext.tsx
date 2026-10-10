@@ -1,11 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-
-interface AuthUser {
-  _id: string;
-  name: string;
-  email: string;
-}
+import { getMe } from '../services/auth';
+import type { AuthUser } from '../services/auth';
 
 interface AuthContextValue {
   user: AuthUser | null;
@@ -18,11 +14,27 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  function login(token: string, user: AuthUser) {
+  // On mount: if a token exists, rehydrate the current user
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    getMe()
+      .then((u) => setUser(u))
+      .catch(() => {
+        // Token invalid / expired — clean up
+        localStorage.removeItem('token');
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  function login(token: string, u: AuthUser) {
     localStorage.setItem('token', token);
-    setUser(user);
+    setUser(u);
   }
 
   function logout() {
