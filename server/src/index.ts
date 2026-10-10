@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import connectDB from './config/db';
 import authRouter from './routes/authRouter';
+import expenseRouter from './routes/expenseRouter';
 import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
@@ -26,6 +27,7 @@ app.get('/api/health', (_req, res) => {
 
 // --- API routes ---
 app.use('/api/auth', authRouter);
+app.use('/api/expenses', expenseRouter);
 
 // --- Error handler (must be last) ---
 app.use(errorHandler);
